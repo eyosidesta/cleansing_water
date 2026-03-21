@@ -1,0 +1,71 @@
+/* Teaching Card Styles */
+
+.teaching-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-8);
+    text-decoration: none;
+    height: 100%;
+}
+
+.teaching-card.featured {
+    border-color: var(--gold-primary);
+    background: linear-gradient(135deg,
+            rgba(212, 175, 55, 0.08) 0%,
+            rgba(10, 10, 15, 0.5) 100%);
+}
+
+.teaching-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: var(--space-5);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: var(--radius-lg);
+    color: var(--gold-primary);
+}
+
+.teaching-card-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.teaching-card-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+}
+
+.teaching-card-description {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: var(--leading-relaxed);
+    flex: 1;
+    margin-bottom: var(--space-4);
+}
+
+.teaching-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--gold-primary);
+    margin-top: auto;
+    transition: all var(--transition-fast);
+}
+
+a.teaching-card:hover .teaching-card-link {
+    gap: var(--space-3);
+}
+
+a.teaching-card:hover .teaching-card-title {
+    color: var(--gold-primary);
+}

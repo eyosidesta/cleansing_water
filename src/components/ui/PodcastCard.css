@@ -1,0 +1,186 @@
+/* Podcast Card Styles */
+
+.podcast-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.podcast-card-image {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.podcast-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.podcast-card:hover .podcast-card-image img {
+    transform: scale(1.05);
+}
+
+.podcast-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.podcast-card:hover .podcast-card-overlay {
+    opacity: 1;
+}
+
+.play-button {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-full);
+    background: var(--gold-primary);
+    color: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    transform: scale(0.8);
+}
+
+.podcast-card:hover .play-button {
+    transform: scale(1);
+}
+
+.play-button:hover {
+    background: var(--gold-light);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+}
+
+.play-button svg {
+    margin-left: 4px;
+    /* Visual centering for play icon */
+}
+
+.podcast-duration {
+    position: absolute;
+    bottom: var(--space-3);
+    right: var(--space-3);
+    padding: var(--space-1) var(--space-2);
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--text-primary);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    border-radius: var(--radius-sm);
+}
+
+.podcast-card-content {
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.podcast-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+}
+
+.podcast-date {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+}
+
+.podcast-speaker {
+    font-size: var(--text-xs);
+    color: var(--gold-primary);
+    font-weight: var(--font-medium);
+}
+
+.podcast-speaker::before {
+    content: '•';
+    margin-right: var(--space-3);
+    color: var(--text-muted);
+}
+
+.podcast-card-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+}
+
+.podcast-card-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.podcast-card-title a:hover {
+    color: var(--gold-primary);
+}
+
+.podcast-card-description {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: var(--leading-relaxed);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+}
+
+.podcast-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--glass-border);
+}
+
+.listen-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--gold-primary);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.listen-link:hover {
+    color: var(--gold-light);
+    gap: var(--space-3);
+}
+
+.share-button {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.share-button:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--gold-primary);
+    color: var(--gold-primary);
+}

@@ -1,17 +1,23 @@
 /* Cleansing Water Ministry - CSS Design System */
 
 :root {
+  /* === Blue Foundation === */
+  --blue-primary: #2f7df6;
+  --blue-strong: #1f5fd1;
+  --blue-deep: #0f326d;
+  --blue-soft: #7eb6ff;
+
   /* === Gold Accents === */
   --gold-primary: #D4AF37;
   --gold-light: #F4E4BC;
   --gold-dark: #A67C00;
   --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #D4AF37 100%);
   
-  /* === Dark Background === */
-  --bg-dark: #0A0A0F;
-  --bg-darker: #050508;
-  --bg-card: rgba(255, 255, 255, 0.05);
-  --bg-elevated: rgba(255, 255, 255, 0.08);
+  /* === Blue-First Background === */
+  --bg-dark: #081730;
+  --bg-darker: #060f24;
+  --bg-card: rgba(47, 125, 246, 0.14);
+  --bg-elevated: rgba(78, 149, 255, 0.2);
   
   /* === Text Colors === */
   --text-primary: #FFFFFF;
@@ -20,13 +26,13 @@
   --text-gold: var(--gold-primary);
   
   /* === Glassmorphism === */
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-bg-hover: rgba(255, 255, 255, 0.12);
-  --glass-border: rgba(212, 175, 55, 0.2);
-  --glass-border-hover: rgba(212, 175, 55, 0.4);
+  --glass-bg: rgba(37, 92, 181, 0.2);
+  --glass-bg-hover: rgba(52, 114, 216, 0.28);
+  --glass-border: rgba(126, 182, 255, 0.3);
+  --glass-border-hover: rgba(126, 182, 255, 0.5);
   --glass-blur: 20px;
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --glass-shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.4);
+  --glass-shadow: 0 8px 32px rgba(3, 10, 24, 0.45);
+  --glass-shadow-hover: 0 12px 48px rgba(5, 18, 45, 0.55);
   
   /* === Typography === */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;

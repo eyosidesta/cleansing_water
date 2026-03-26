@@ -20,7 +20,10 @@ html {
 
 body {
     font-family: var(--font-primary);
-    background-color: var(--bg-dark);
+    background:
+        radial-gradient(ellipse at 20% -20%, rgba(47, 125, 246, 0.22), transparent 45%),
+        radial-gradient(ellipse at 80% 0%, rgba(31, 95, 209, 0.18), transparent 40%),
+        linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
     color: var(--text-primary);
     line-height: var(--leading-normal);
     min-height: 100vh;
@@ -85,6 +88,11 @@ a {
 
 a:hover {
     color: var(--gold-light);
+}
+
+a.btn:hover,
+a.btn:focus-visible {
+    color: inherit;
 }
 
 /* === Links & Interactive === */

@@ -12,6 +12,7 @@ const ArticleCard = ({
     readTime
 }) => {
     const formatDate = (dateStr) => {
+        if (!dateStr) return 'Date not set';
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateStr).toLocaleDateString('en-US', options);
     };

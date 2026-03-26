@@ -9,9 +9,31 @@
     background: linear-gradient(135deg,
             var(--bg-darker) 0%,
             var(--bg-dark) 50%,
-            #1a1a2e 100%);
+            #174089 100%);
     text-align: center;
     border-bottom: 1px solid var(--glass-border);
+}
+
+.content-page .page-hero.testimony-hero {
+    position: relative;
+    background-image:
+        linear-gradient(135deg, rgba(6, 15, 36, 0.86), rgba(23, 64, 137, 0.82)),
+        url('https://images.unsplash.com/photo-1461773518188-b3e86f98242f?auto=format&fit=crop&w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+.content-page .page-hero.testimony-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(126, 182, 255, 0.2), transparent 60%);
+    pointer-events: none;
+}
+
+.content-page .page-hero.testimony-hero .container {
+    position: relative;
+    z-index: 1;
 }
 
 .content-page .page-label {
@@ -165,7 +187,7 @@
     margin: 0 auto;
     background: linear-gradient(135deg,
             rgba(212, 175, 55, 0.08) 0%,
-            rgba(10, 10, 15, 0.6) 100%);
+            rgba(22, 65, 133, 0.5) 100%);
     border-color: var(--gold-primary);
 }
 

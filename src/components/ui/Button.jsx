@@ -38,7 +38,7 @@ const Button = forwardRef(({
                 </span>
             )}
             {icon && iconPosition === 'left' && <span className="btn-icon">{icon}</span>}
-            <span className="btn-text">{children}</span>
+            <span className="btn-label">{children}</span>
             {icon && iconPosition === 'right' && <span className="btn-icon">{icon}</span>}
         </>
     );

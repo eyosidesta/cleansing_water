@@ -1,220 +1,235 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../components/ui/Button';
+import { submitInterviewRequest } from '../lib/api';
 import './FormPage.css';
 
 const InterviewRequest = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        organization: '',
-        mediaType: '',
-        platform: '',
-        audienceSize: '',
-        proposedDate: '',
-        topic: '',
-        additionalInfo: ''
-    });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    confirmEmail: '',
+    organizationName: '',
+    organizationWebsite: '',
+    phone: '',
+    interviewerName: '',
+    purpose: '',
+    duration: '',
+    mediaType: '',
+    interviewType: '',
+    requestedDate: '',
+    alternateDate: '',
+    primaryTopic: '',
+    additionalInformation: '',
+    humanCheck: false,
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setIsSubmitting(false);
-        setSubmitted(true);
-    };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setError('');
+    try {
+      await submitInterviewRequest(formData);
+      setSubmitted(true);
+    } catch (submitError) {
+      setError(submitError.message || 'Unable to submit interview request.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-    return (
-        <div className="form-page">
-            <section className="page-hero">
-                <div className="container">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <span className="page-label">Media Inquiry</span>
-                        <h1 className="page-title">Interview Request</h1>
-                        <p className="page-subtitle">
-                            Request an interview for your podcast, show, or publication.
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
-
-            <section className="section">
-                <div className="container">
-                    <motion.div
-                        className="form-card glass-card form-centered"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                    >
-                        {submitted ? (
-                            <div className="form-success">
-                                <div className="success-icon">
-                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <polyline points="9 12 12 15 16 10" />
-                                    </svg>
-                                </div>
-                                <h3>Request Submitted!</h3>
-                                <p>Thank you for your interest. We'll review your request and get back to you soon.</p>
-                                <Button onClick={() => setSubmitted(false)} variant="outline">
-                                    Submit Another Request
-                                </Button>
-                            </div>
-                        ) : (
-                            <form onSubmit={handleSubmit}>
-                                <div className="form-row">
-                                    <div className="form-group">
-                                        <label htmlFor="name">Your Name</label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleChange}
-                                            required
-                                            placeholder="Your name"
-                                        />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="email">Email</label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            required
-                                            placeholder="your@email.com"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="organization">Organization/Media Outlet</label>
-                                    <input
-                                        type="text"
-                                        id="organization"
-                                        name="organization"
-                                        value={formData.organization}
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="Name of your podcast, channel, or publication"
-                                    />
-                                </div>
-
-                                <div className="form-row">
-                                    <div className="form-group">
-                                        <label htmlFor="mediaType">Media Type</label>
-                                        <select
-                                            id="mediaType"
-                                            name="mediaType"
-                                            value={formData.mediaType}
-                                            onChange={handleChange}
-                                            required
-                                        >
-                                            <option value="">Select type...</option>
-                                            <option value="podcast">Podcast</option>
-                                            <option value="youtube">YouTube Channel</option>
-                                            <option value="radio">Radio</option>
-                                            <option value="tv">Television</option>
-                                            <option value="blog">Blog/Website</option>
-                                            <option value="print">Print Publication</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="audienceSize">Audience Size</label>
-                                        <select
-                                            id="audienceSize"
-                                            name="audienceSize"
-                                            value={formData.audienceSize}
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">Select size...</option>
-                                            <option value="small">Under 1,000</option>
-                                            <option value="medium">1,000 - 10,000</option>
-                                            <option value="large">10,000 - 100,000</option>
-                                            <option value="xlarge">Over 100,000</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="platform">Platform/Website URL</label>
-                                    <input
-                                        type="url"
-                                        id="platform"
-                                        name="platform"
-                                        value={formData.platform}
-                                        onChange={handleChange}
-                                        placeholder="https://yourplatform.com"
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="proposedDate">Proposed Date/Timeframe</label>
-                                    <input
-                                        type="text"
-                                        id="proposedDate"
-                                        name="proposedDate"
-                                        value={formData.proposedDate}
-                                        onChange={handleChange}
-                                        placeholder="e.g., Sometime in January, or specific date"
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="topic">Proposed Topic/Discussion</label>
-                                    <input
-                                        type="text"
-                                        id="topic"
-                                        name="topic"
-                                        value={formData.topic}
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="What would you like to discuss?"
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="additionalInfo">Additional Information</label>
-                                    <textarea
-                                        id="additionalInfo"
-                                        name="additionalInfo"
-                                        value={formData.additionalInfo}
-                                        onChange={handleChange}
-                                        placeholder="Format, duration, any other details..."
-                                        rows={4}
-                                    />
-                                </div>
-
-                                <Button type="submit" variant="primary" size="lg" fullWidth loading={isSubmitting}>
-                                    Submit Request
-                                </Button>
-
-                                <p className="form-note">
-                                    We review all interview requests and will respond within 5 business days.
-                                    Submission does not guarantee availability or acceptance.
-                                </p>
-                            </form>
-                        )}
-                    </motion.div>
-                </div>
-            </section>
+  return (
+    <div className="form-page">
+      <section className="page-hero">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="page-label">Media Inquiry</span>
+            <h1 className="page-title">Interview Request</h1>
+            <p className="page-subtitle">
+              Request an interview for your podcast, show, or publication.
+            </p>
+          </motion.div>
         </div>
-    );
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="request-layout">
+            <motion.aside
+              className="glass-card request-profile-card"
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <img
+                src="/justin.jpg"
+                alt="Justin - CEO of Cleansing Waters Ministry"
+                className="request-profile-image"
+              />
+              <h3 className="request-profile-title">Justin</h3>
+              <p className="request-profile-subtitle">CEO of Cleansing Waters Ministry</p>
+              <p className="text-muted">
+                We appreciate your media interest. Share your interview details and our team will respond as soon as possible.
+              </p>
+            </motion.aside>
+
+            <motion.div
+              className="form-card glass-card request-form-card"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              {submitted ? (
+                <div className="form-success">
+                  <div className="success-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="9 12 12 15 16 10" />
+                    </svg>
+                  </div>
+                  <h3>Request Submitted!</h3>
+                  <p>Thank you. We will review your interview request and respond soon.</p>
+                  <Button onClick={() => setSubmitted(false)} variant="outline">
+                    Submit Another Request
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit}>
+                  {error && <p className="form-note">{error}</p>}
+                <h3 className="mb-4">About You</h3>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="firstName">First Name</label>
+                    <input id="firstName" name="firstName" type="text" value={formData.firstName} onChange={handleChange} required />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input id="lastName" name="lastName" type="text" value={formData.lastName} onChange={handleChange} required />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="confirmEmail">Confirm Email</label>
+                    <input id="confirmEmail" name="confirmEmail" type="email" value={formData.confirmEmail} onChange={handleChange} required />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="organizationName">Your Organization</label>
+                    <input id="organizationName" name="organizationName" type="text" value={formData.organizationName} onChange={handleChange} required />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="organizationWebsite">Organization Website</label>
+                    <input id="organizationWebsite" name="organizationWebsite" type="url" value={formData.organizationWebsite} onChange={handleChange} />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="phone">Phone</label>
+                  <input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} required />
+                </div>
+
+                <h3 className="mb-4">Interview Details</h3>
+                <div className="form-group">
+                  <label htmlFor="interviewerName">Interviewer's Name</label>
+                  <input id="interviewerName" name="interviewerName" type="text" value={formData.interviewerName} onChange={handleChange} required />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="purpose">Purpose of Interview</label>
+                  <textarea id="purpose" name="purpose" rows={3} value={formData.purpose} onChange={handleChange} required />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="duration">Interview Duration</label>
+                  <input id="duration" name="duration" type="text" value={formData.duration} onChange={handleChange} required placeholder="e.g., 45 minutes" />
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="mediaType">Interview Media Type</label>
+                    <select id="mediaType" name="mediaType" value={formData.mediaType} onChange={handleChange} required>
+                      <option value="">Select media type...</option>
+                      <option value="TELEVISION">Television</option>
+                      <option value="RADIO">Radio</option>
+                      <option value="PRINT">Print</option>
+                      <option value="PODCAST">Podcast</option>
+                      <option value="ONLINE_VIDEO">Online Video</option>
+                      <option value="ONLINE_ARTICLE">Online Article</option>
+                      <option value="OTHER">Other</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="interviewType">Interview Type</label>
+                    <select id="interviewType" name="interviewType" value={formData.interviewType} onChange={handleChange} required>
+                      <option value="">Select interview type...</option>
+                      <option value="LIVE">Live</option>
+                      <option value="RECORDED">Recorded</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="requestedDate">Requested Date</label>
+                    <input id="requestedDate" name="requestedDate" type="date" value={formData.requestedDate} onChange={handleChange} required />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="alternateDate">Alternate Date (Optional)</label>
+                    <input id="alternateDate" name="alternateDate" type="date" value={formData.alternateDate} onChange={handleChange} />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="primaryTopic">Primary Topic Requested</label>
+                  <input id="primaryTopic" name="primaryTopic" type="text" value={formData.primaryTopic} onChange={handleChange} placeholder="Gospel, discipleship, prayer, evangelism, etc." />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="additionalInformation">Additional Information</label>
+                  <textarea id="additionalInformation" name="additionalInformation" rows={4} value={formData.additionalInformation} onChange={handleChange} required />
+                </div>
+
+                <div className="form-group">
+                  <label>
+                    <input type="checkbox" name="humanCheck" checked={formData.humanCheck} onChange={handleChange} /> Are you a human?
+                  </label>
+                </div>
+
+                <Button type="submit" variant="primary" size="lg" fullWidth loading={isSubmitting}>
+                  Submit Request
+                </Button>
+
+                <p className="form-note">
+                  If you have any issues submitting this form, please email your request to our@email.com.
+                </p>
+                </form>
+              )}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 };
 
 export default InterviewRequest;

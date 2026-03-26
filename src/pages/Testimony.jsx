@@ -5,7 +5,7 @@ import './ContentPage.css';
 const Testimony = () => {
     return (
         <div className="content-page">
-            <section className="page-hero">
+            <section className="page-hero testimony-hero">
                 <div className="container">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}

@@ -1,0 +1,122 @@
+.admin-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  background: var(--bg-darker);
+}
+
+.admin-sidebar {
+  border-right: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.02);
+  padding: var(--space-6);
+}
+
+.admin-brand h2 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-1);
+}
+
+.admin-brand p {
+  color: var(--text-muted);
+  margin-bottom: var(--space-6);
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.admin-nav-link {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+}
+
+.admin-nav-link:hover,
+.admin-nav-link.active {
+  color: var(--text-primary);
+  background: rgba(212, 175, 55, 0.12);
+}
+
+.admin-main {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.admin-header h1 {
+  font-size: var(--text-2xl);
+}
+
+.admin-header p {
+  color: var(--text-muted);
+}
+
+.admin-content {
+  padding: var(--space-6);
+}
+
+.admin-card {
+  padding: var(--space-5);
+}
+
+.admin-grid {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.admin-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.admin-subsection {
+  margin-top: var(--space-8);
+}
+
+.admin-subsection h3 {
+  margin-bottom: var(--space-4);
+}
+
+.admin-inline-form {
+  margin-bottom: var(--space-4);
+}
+
+@media (max-width: 1024px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+}

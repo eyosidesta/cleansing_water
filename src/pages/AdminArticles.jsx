@@ -19,6 +19,7 @@ const AdminArticles = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [editingCategoryId, setEditingCategoryId] = useState(null);
   const [editCategoryForm, setEditCategoryForm] = useState({ title: '', description: '' });
+  const [selectedArticle, setSelectedArticle] = useState(null);
   const [error, setError] = useState('');
   const [isSavingCategory, setIsSavingCategory] = useState(false);
 
@@ -164,6 +165,7 @@ const AdminArticles = () => {
                 <th>Category</th>
                 <th>Date</th>
                 <th>Author</th>
+                <th>View</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -174,6 +176,14 @@ const AdminArticles = () => {
                   <td>{article.category || 'No category'}</td>
                   <td>{article.date ? new Date(article.date).toLocaleDateString() : 'Not set'}</td>
                   <td>{article.authorName || 'Cleansing Water Ministry'}</td>
+                  <td>
+                    <button className="admin-icon-btn" type="button" onClick={() => setSelectedArticle(article)} aria-label="View article">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    </button>
+                  </td>
                   <td>
                     <div className="admin-actions">
                       <Link to={`/admin/articles/${article.id}/edit`}>Edit</Link>
@@ -350,6 +360,27 @@ const AdminArticles = () => {
             ) : (
               <p className="text-muted">Choose a category above to manage its articles.</p>
             )}
+          </div>
+        </div>
+      )}
+
+      {selectedArticle && (
+        <div className="admin-modal-backdrop" onClick={() => setSelectedArticle(null)}>
+          <div className="admin-modal glass-card" onClick={(event) => event.stopPropagation()}>
+            <div className="admin-modal-header">
+              <h3>Article Details</h3>
+              <button type="button" onClick={() => setSelectedArticle(null)} aria-label="Close modal">×</button>
+            </div>
+            <div className="admin-modal-body">
+              <p><strong>Title:</strong> {selectedArticle.title}</p>
+              <p><strong>Author:</strong> {selectedArticle.authorName || 'Cleansing Water Ministry'}</p>
+              <p><strong>Date:</strong> {selectedArticle.date ? new Date(selectedArticle.date).toLocaleDateString() : 'Not set'}</p>
+              <p><strong>Category:</strong> {selectedArticle.category || 'No category'}</p>
+              <p><strong>Excerpt:</strong></p>
+              <p className="admin-detail-pre">{selectedArticle.excerpt}</p>
+              <p><strong>Content:</strong></p>
+              <p className="admin-detail-pre">{selectedArticle.contentRaw}</p>
+            </div>
           </div>
         </div>
       )}

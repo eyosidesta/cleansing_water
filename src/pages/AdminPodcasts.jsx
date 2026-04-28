@@ -19,6 +19,7 @@ const AdminPodcasts = () => {
   const [selectedSeriesId, setSelectedSeriesId] = useState(null);
   const [editingSeriesId, setEditingSeriesId] = useState(null);
   const [editSeriesForm, setEditSeriesForm] = useState({ title: '', description: '' });
+  const [selectedPodcast, setSelectedPodcast] = useState(null);
   const [error, setError] = useState('');
   const [isSavingSeries, setIsSavingSeries] = useState(false);
 
@@ -155,6 +156,7 @@ const AdminPodcasts = () => {
                 <th>Date</th>
                 <th>Series</th>
                 <th>Speaker</th>
+                <th>View</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -165,6 +167,14 @@ const AdminPodcasts = () => {
                   <td>{new Date(podcast.date).toLocaleDateString()}</td>
                   <td>{podcast.series?.title ?? 'No series'}</td>
                   <td>{podcast.speaker}</td>
+                  <td>
+                    <button className="admin-icon-btn" type="button" onClick={() => setSelectedPodcast(podcast)} aria-label="View podcast">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    </button>
+                  </td>
                   <td>
                     <div className="admin-actions">
                       <Link to={`/admin/podcasts/${podcast.id}/edit`}>Edit</Link>
@@ -311,6 +321,26 @@ const AdminPodcasts = () => {
             ) : (
               <p className="text-muted">Choose a series above to view and manage its podcasts.</p>
             )}
+          </div>
+        </div>
+      )}
+
+      {selectedPodcast && (
+        <div className="admin-modal-backdrop" onClick={() => setSelectedPodcast(null)}>
+          <div className="admin-modal glass-card" onClick={(event) => event.stopPropagation()}>
+            <div className="admin-modal-header">
+              <h3>Podcast Details</h3>
+              <button type="button" onClick={() => setSelectedPodcast(null)} aria-label="Close modal">×</button>
+            </div>
+            <div className="admin-modal-body">
+              <p><strong>Title:</strong> {selectedPodcast.title}</p>
+              <p><strong>Speaker:</strong> {selectedPodcast.speaker}</p>
+              <p><strong>Date:</strong> {selectedPodcast.date ? new Date(selectedPodcast.date).toLocaleDateString() : 'Not set'}</p>
+              <p><strong>Series:</strong> {selectedPodcast.series?.title ?? 'No series'}</p>
+              <p><strong>YouTube URL:</strong> {selectedPodcast.youtubeUrl || 'Not set'}</p>
+              <p><strong>Description:</strong></p>
+              <p className="admin-detail-pre">{selectedPodcast.description}</p>
+            </div>
           </div>
         </div>
       )}

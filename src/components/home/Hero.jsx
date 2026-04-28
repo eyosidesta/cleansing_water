@@ -7,6 +7,7 @@ const Hero = ({
     subtitle,
     rotatingWords = [],
     showAnimatedGradient = true,
+    backgroundImage,
     children
 }) => {
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -22,7 +23,10 @@ const Hero = ({
     }, [rotatingWords.length]);
 
     return (
-        <section className={`hero ${showAnimatedGradient ? 'animated-gradient' : ''}`}>
+        <section
+            className={`hero ${showAnimatedGradient ? 'animated-gradient' : ''} ${backgroundImage ? 'with-background-image' : ''}`}
+            style={backgroundImage ? { '--hero-background-image': `url(${backgroundImage})` } : undefined}
+        >
             <div className="hero-overlay"></div>
             <div className="hero-container">
                 <motion.div

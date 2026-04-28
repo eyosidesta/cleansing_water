@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 @import './variables.css';
 @import './animations.css';
+@import './section-backgrounds.css';
 
 /* === Reset & Base Styles === */
 *,
@@ -21,8 +22,8 @@ html {
 body {
     font-family: var(--font-primary);
     background:
-        radial-gradient(ellipse at 20% -20%, rgba(47, 125, 246, 0.22), transparent 45%),
-        radial-gradient(ellipse at 80% 0%, rgba(31, 95, 209, 0.18), transparent 40%),
+        radial-gradient(ellipse at 20% -20%, var(--page-accent-1), transparent 45%),
+        radial-gradient(ellipse at 80% 0%, var(--page-accent-2), transparent 40%),
         linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
     color: var(--text-primary);
     line-height: var(--leading-normal);

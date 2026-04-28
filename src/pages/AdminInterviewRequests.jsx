@@ -3,7 +3,6 @@ import {
   fetchInterviewRequests,
   updateInterviewRequestStatus,
 } from '../lib/api';
-import Button from '../components/ui/Button';
 
 const STATUS_OPTIONS = ['NEW', 'IN_REVIEW', 'FOLLOW_UP', 'ACCEPTED', 'DECLINED'];
 
@@ -70,6 +69,7 @@ const AdminInterviewRequests = () => {
                 <td>{request.mediaType}</td>
                 <td>
                   <select
+                    className={`admin-status-select ${request.status}`}
                     value={request.status}
                     disabled={savingId === request.id}
                     onChange={(event) => handleStatusChange(request.id, event.target.value)}
@@ -82,9 +82,12 @@ const AdminInterviewRequests = () => {
                   </select>
                 </td>
                 <td>
-                  <Button type="button" variant="ghost" onClick={() => setSelectedRequest(request)}>
-                    View
-                  </Button>
+                  <button className="admin-icon-btn" type="button" onClick={() => setSelectedRequest(request)} aria-label="View details">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  </button>
                 </td>
               </tr>
             ))}
@@ -97,7 +100,7 @@ const AdminInterviewRequests = () => {
           <div className="admin-modal glass-card" onClick={(event) => event.stopPropagation()}>
             <div className="admin-modal-header">
               <h3>Interview Request Details</h3>
-              <button type="button" onClick={() => setSelectedRequest(null)}>Close</button>
+              <button type="button" onClick={() => setSelectedRequest(null)} aria-label="Close modal">×</button>
             </div>
             <div className="admin-modal-body">
               <p><strong>Organization:</strong> {selectedRequest.organizationName}</p>

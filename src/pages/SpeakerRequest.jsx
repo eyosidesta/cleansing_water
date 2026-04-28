@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../components/ui/Button';
 import { submitSpeakerRequest } from '../lib/api';
+import justinProfileImage from '../assets/justin-profile.png';
 import './FormPage.css';
 
 const SpeakerRequest = () => {
@@ -78,7 +79,7 @@ const SpeakerRequest = () => {
               transition={{ delay: 0.1 }}
             >
               <img
-                src="/justin.jpg"
+                src={justinProfileImage}
                 alt="Justin - CEO of Cleansing Waters Ministry"
                 className="request-profile-image"
               />

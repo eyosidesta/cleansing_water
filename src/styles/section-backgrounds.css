@@ -1,0 +1,24 @@
+/**
+ * Optional section backgrounds (default site surfaces stay white).
+ * Replace the SVG files in src/assets/section-backgrounds/ with your own wide artwork
+ * (same filenames) when you have final images — keep them light so headings stay readable.
+ *
+ * - page-hero--bg-warm  → soft cream / gold whisper (used on Podcasts list hero)
+ * - page-hero--bg-cool  → soft blue-grey mist (use on another page’s hero or section)
+ */
+
+.page-hero--bg-warm {
+    background-color: #ffffff;
+    background-image: url('../assets/section-backgrounds/section-bg-warm-ribbon.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+}
+
+.page-hero--bg-cool {
+    background-color: #ffffff;
+    background-image: url('../assets/section-backgrounds/section-bg-cool-mist.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+}

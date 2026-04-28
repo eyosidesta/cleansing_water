@@ -60,6 +60,21 @@ function normalizeArticleForUi(article) {
   };
 }
 
+function normalizeTestimonyForUi(testimony) {
+  return {
+    id: testimony.id,
+    title: testimony.title,
+    summary: testimony.summary,
+    contentRaw: testimony.contentRaw,
+    contentParagraphs: testimony.contentParagraphs ?? [],
+    authorName: testimony.authorName,
+    coverImageUrl: testimony.coverImageUrl ?? '',
+    galleryImageUrls: testimony.galleryImageUrls ?? [],
+    date: testimony.publishedAt ?? testimony.createdAt,
+    slug: String(testimony.id),
+  };
+}
+
 async function fetchPodcasts() {
   const podcasts = await apiRequest('/podcasts');
   return podcasts.map(normalizePodcastForUi);
@@ -68,6 +83,16 @@ async function fetchPodcasts() {
 async function fetchArticles() {
   const articles = await apiRequest('/articles');
   return articles.map(normalizeArticleForUi);
+}
+
+async function fetchTestimonies() {
+  const testimonies = await apiRequest('/testimonies');
+  return testimonies.map(normalizeTestimonyForUi);
+}
+
+async function fetchTestimonyById(testimonyId) {
+  const testimony = await apiRequest(`/testimonies/${testimonyId}`);
+  return normalizeTestimonyForUi(testimony);
 }
 
 async function fetchArticleById(articleId) {
@@ -145,6 +170,14 @@ async function createArticle(payload) {
   });
 }
 
+async function createTestimony(payload) {
+  return apiRequest('/testimonies', {
+    method: 'POST',
+    auth: true,
+    body: JSON.stringify(payload),
+  });
+}
+
 async function fetchArticleCategories() {
   return apiRequest('/article-categories');
 }
@@ -210,6 +243,25 @@ async function updateSpeakerRequestStatus(requestId, payload) {
   });
 }
 
+async function submitContactRequest(payload) {
+  return apiRequest('/contact-requests', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+async function fetchContactRequests() {
+  return apiRequest('/contact-requests', { auth: true });
+}
+
+async function updateContactRequestStatus(requestId, payload) {
+  return apiRequest(`/contact-requests/${requestId}/status`, {
+    method: 'PATCH',
+    auth: true,
+    body: JSON.stringify(payload),
+  });
+}
+
 async function updateArticle(articleId, payload) {
   return apiRequest(`/articles/${articleId}`, {
     method: 'PATCH',
@@ -218,8 +270,23 @@ async function updateArticle(articleId, payload) {
   });
 }
 
+async function updateTestimony(testimonyId, payload) {
+  return apiRequest(`/testimonies/${testimonyId}`, {
+    method: 'PATCH',
+    auth: true,
+    body: JSON.stringify(payload),
+  });
+}
+
 async function deleteArticle(articleId) {
   return apiRequest(`/articles/${articleId}`, {
+    method: 'DELETE',
+    auth: true,
+  });
+}
+
+async function deleteTestimony(testimonyId) {
+  return apiRequest(`/testimonies/${testimonyId}`, {
     method: 'DELETE',
     auth: true,
   });
@@ -243,11 +310,31 @@ async function uploadPodcastCoverImage(file) {
   return payload;
 }
 
+async function uploadTestimonyImage(file) {
+  const token = getAdminToken();
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const response = await fetch(`${API_BASE_URL}/uploads/testimony-image`, {
+    method: 'POST',
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: formData,
+  });
+
+  const payload = await response.json();
+  if (!response.ok) {
+    throw new Error(payload?.message ?? 'Image upload failed.');
+  }
+  return payload;
+}
+
 export {
   API_BASE_URL,
   fetchPodcasts,
   fetchArticles,
+  fetchTestimonies,
   fetchArticleById,
+  fetchTestimonyById,
   loginAdmin,
   createPodcast,
   updatePodcast,
@@ -258,8 +345,11 @@ export {
   updateSeries,
   deleteSeries,
   createArticle,
+  createTestimony,
   updateArticle,
+  updateTestimony,
   deleteArticle,
+  deleteTestimony,
   fetchArticleCategories,
   createArticleCategory,
   updateArticleCategory,
@@ -270,5 +360,9 @@ export {
   fetchSpeakerRequests,
   updateInterviewRequestStatus,
   updateSpeakerRequestStatus,
+  submitContactRequest,
+  fetchContactRequests,
+  updateContactRequestStatus,
   uploadPodcastCoverImage,
+  uploadTestimonyImage,
 };

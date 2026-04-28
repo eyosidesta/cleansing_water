@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../components/ui/Button';
+import { submitContactRequest } from '../lib/api';
 import './FormPage.css';
 
 const Contact = () => {
@@ -12,6 +13,7 @@ const Contact = () => {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState('');
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,10 +22,26 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setIsSubmitting(false);
-        setSubmitted(true);
+        setError('');
+        try {
+            await submitContactRequest({
+                name: formData.name.trim(),
+                email: formData.email.trim(),
+                subject: formData.subject.trim(),
+                message: formData.message.trim(),
+            });
+            setSubmitted(true);
+            setFormData({
+                name: '',
+                email: '',
+                subject: '',
+                message: '',
+            });
+        } catch (submitError) {
+            setError(submitError.message || 'Unable to send message.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -110,6 +128,7 @@ const Contact = () => {
                                 </div>
                             ) : (
                                 <form onSubmit={handleSubmit}>
+                                    {error && <p className="form-note">{error}</p>}
                                     <div className="form-group">
                                         <label htmlFor="name">Name</label>
                                         <input

@@ -10,7 +10,8 @@ const PodcastCard = ({
     date,
     duration,
     speaker,
-    slug
+    slug,
+    animationIndex = 0
 }) => {
     const formatDate = (dateStr) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -20,19 +21,19 @@ const PodcastCard = ({
     return (
         <motion.article
             className="podcast-card glass-card"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -120 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.65, delay: animationIndex * 0.12, ease: 'easeOut' }}
         >
             <div className="podcast-card-image">
                 <img src={image} alt={title} loading="lazy" />
                 <div className="podcast-card-overlay">
-                    <button className="play-button" aria-label="Play podcast">
+                    <Link to={`/podcasts/${slug || id}`} className="play-button" aria-label={`Play ${title}`}>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M8 5v14l11-7z" />
                         </svg>
-                    </button>
+                    </Link>
                 </div>
                 {duration && <span className="podcast-duration">{duration}</span>}
             </div>

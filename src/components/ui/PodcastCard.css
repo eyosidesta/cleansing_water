@@ -52,6 +52,7 @@
     cursor: pointer;
     transition: all var(--transition-fast);
     transform: scale(0.8);
+    text-decoration: none;
 }
 
 .podcast-card:hover .play-button {

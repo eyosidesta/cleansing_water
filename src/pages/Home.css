@@ -48,7 +48,7 @@
 
 /* Podcasts Section */
 .podcasts-section {
-    background: linear-gradient(180deg, #0a2a58 0%, var(--bg-darker) 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
 }
 
 .podcasts-grid {
@@ -60,7 +60,7 @@
 /* Explanation Section */
 .explanation-section {
     position: relative;
-    background: linear-gradient(180deg, #0b2550 0%, var(--bg-darker) 100%);
+    background: var(--brand-teal);
     overflow: hidden;
 }
 
@@ -71,7 +71,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
 }
 
 .explanation-content {
@@ -79,35 +79,38 @@
     margin: 0 auto;
 }
 
-.explanation-content h2 {
+.explanation-section__title {
     font-size: var(--text-4xl);
     margin-bottom: var(--space-6);
+    color: #ffffff;
+    font-weight: var(--font-bold);
 }
 
-.scripture-quote {
+.explanation-content .scripture-quote {
     font-family: var(--font-heading);
     font-size: var(--text-xl);
     font-style: italic;
-    color: var(--text-secondary);
+    color: #ffffff;
     line-height: var(--leading-relaxed);
-    padding: var(--space-6);
+    padding: var(--space-6) 0 var(--space-6) var(--space-6);
     margin: var(--space-8) 0;
-    border-left: 3px solid var(--gold-primary);
-    background: var(--glass-bg);
-    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    border-left: 3px solid rgba(255, 255, 255, 0.55);
+    background: none;
+    border-radius: 0;
 }
 
-.scripture-quote cite {
+.explanation-content .scripture-quote cite {
     display: block;
     margin-top: var(--space-4);
     font-size: var(--text-sm);
     font-style: normal;
-    color: var(--gold-primary);
+    color: rgba(255, 255, 255, 0.92);
 }
 
 .explanation-content p {
     font-size: var(--text-base);
     margin-bottom: var(--space-4);
+    color: #ffffff;
 }
 
 .explanation-cta {
@@ -117,9 +120,22 @@
     margin-top: var(--space-8);
 }
 
+/* Statement of Faith: always readable on teal (ghost buttons default to dark text) */
+.explanation-section .btn-ghost {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.explanation-section .btn-ghost:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
 /* FAQ Section */
 .faq-section {
-    background: linear-gradient(180deg, #102a57 0%, #0a1f43 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
 }
 
 .faq-list {
@@ -132,7 +148,68 @@
 
 /* Articles Section */
 .articles-section {
-    background: linear-gradient(180deg, #0a2a58 0%, var(--bg-darker) 100%);
+    background: var(--brand-navy);
+}
+
+.articles-section .section-label {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.28);
+}
+
+.articles-section .section-title,
+.articles-section .section-description {
+    color: #ffffff;
+}
+
+.articles-section .section-description {
+    color: rgba(255, 255, 255, 0.88);
+}
+
+/* Article list cards on navy: readable without light “box” clashing */
+.home-page .articles-section .article-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(8px);
+}
+
+.home-page .articles-section .article-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
+}
+
+.home-page .articles-section .article-date,
+.home-page .articles-section .article-read-time {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.home-page .articles-section .article-card-title a {
+    color: #ffffff;
+}
+
+.home-page .articles-section .article-card-title a:hover {
+    color: var(--gold-light);
+}
+
+.home-page .articles-section .article-card-excerpt {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.home-page .articles-section .article-read-link {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.home-page .articles-section .article-card:hover .article-read-link {
+    background: var(--gold-primary);
+    border-color: var(--gold-primary);
+    color: var(--bg-dark);
+}
+
+.home-page .articles-section .article-category {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--gold-light);
 }
 
 .articles-list {
@@ -143,9 +220,26 @@
     margin: 0 auto;
 }
 
+/* No gap: Rivers section → first image promo, Featured Articles → next image promo */
+.home-page .explanation-section {
+    padding-bottom: var(--space-8);
+}
+
+.home-page .explanation-section + .image-promo-section {
+    padding-top: 0;
+}
+
+.home-page .articles-section {
+    padding-bottom: var(--space-8);
+}
+
+.home-page .articles-section + .image-promo-section {
+    padding-top: 0;
+}
+
 /* CTA Section */
 .cta-section {
-    background: linear-gradient(180deg, #0b2249 0%, var(--bg-darker) 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
     padding-bottom: var(--space-24);
 }
 
@@ -210,7 +304,7 @@
         flex-direction: column;
     }
 
-    .explanation-content h2 {
+    .explanation-section__title {
         font-size: var(--text-3xl);
     }
 

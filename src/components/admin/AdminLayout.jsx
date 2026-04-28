@@ -7,6 +7,8 @@ const navItems = [
   { to: '/admin/dashboard', label: 'Dashboard' },
   { to: '/admin/podcasts', label: 'Podcasts' },
   { to: '/admin/articles', label: 'Articles' },
+  { to: '/admin/testimonies', label: 'Testimonies' },
+  { to: '/admin/contact-requests', label: 'Contact Requests' },
   { to: '/admin/speaker-requests', label: 'Speaker Requests' },
   { to: '/admin/interview-requests', label: 'Interview Requests' },
 ];

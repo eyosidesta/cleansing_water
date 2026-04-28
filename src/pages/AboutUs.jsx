@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { aboutData } from '../data/teachings';
+import justinProfileImage from '../assets/justin-profile.png';
 import './ContentPage.css';
 
 const AboutUs = () => {
@@ -41,8 +42,8 @@ const AboutUs = () => {
                             viewport={{ once: true }}
                         >
                             <img
-                                src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=800&h=600&fit=crop"
-                                alt="Open Bible"
+                                src={justinProfileImage}
+                                alt="Justin Slemp speaking on a podcast"
                             />
                         </motion.div>
                     </div>
@@ -54,7 +55,7 @@ const AboutUs = () => {
                         viewport={{ once: true }}
                     >
                         <div className="leader-image">
-                            <img src={aboutData.leader.image} alt={aboutData.leader.name} />
+                            <img src={justinProfileImage} alt={aboutData.leader.name} />
                         </div>
                         <h3>{aboutData.leader.name}</h3>
                         <p className="leader-role">{aboutData.leader.role}</p>

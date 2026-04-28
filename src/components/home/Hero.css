@@ -11,24 +11,30 @@
 }
 
 .hero.animated-gradient {
-    background: linear-gradient(135deg,
-            #0A0A0F 0%,
-            #1a1a2e 20%,
-            #16213e 40%,
-            #0f3460 60%,
-            #1a1a2e 80%,
-            #0A0A0F 100%);
+    background: var(--hero-gradient);
     background-size: 400% 400%;
     animation: gradientShift 20s ease infinite;
+}
+
+.hero.animated-gradient.with-background-image {
+    background-image: var(--hero-background-image);
+    background-size: cover;
+    background-position: center;
+    animation: heroImageDrift 24s ease-in-out infinite alternate;
+}
+
+.hero.with-background-image .hero-overlay,
+.hero.with-background-image .hero-decoration {
+    display: none;
 }
 
 .hero-overlay {
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse at center,
-            transparent 0%,
-            rgba(10, 10, 15, 0.5) 70%,
-            rgba(10, 10, 15, 0.9) 100%);
+            var(--hero-overlay-start) 0%,
+            var(--hero-overlay-mid) 70%,
+            var(--hero-overlay-end) 100%);
     pointer-events: none;
 }
 
@@ -67,6 +73,11 @@
     line-height: 1.1;
     color: var(--text-primary);
     max-width: 900px;
+}
+
+.hero.with-background-image .hero-title,
+.hero.with-background-image .hero-subtitle {
+    text-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
 
 .rotating-text-container {
@@ -169,5 +180,15 @@
 @media (max-width: 480px) {
     .hero-title {
         font-size: var(--text-3xl);
+    }
+}
+
+@keyframes heroImageDrift {
+    from {
+        background-position: center 42%;
+    }
+
+    to {
+        background-position: center 58%;
     }
 }

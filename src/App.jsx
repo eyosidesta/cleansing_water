@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -26,8 +27,13 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminArticles from './pages/AdminArticles';
 import AdminArticleCreate from './pages/AdminArticleCreate';
 import AdminArticleEdit from './pages/AdminArticleEdit';
+import AdminTestimonies from './pages/AdminTestimonies';
+import AdminTestimonyCreate from './pages/AdminTestimonyCreate';
+import AdminTestimonyEdit from './pages/AdminTestimonyEdit';
+import AdminContactRequests from './pages/AdminContactRequests';
 import AdminSpeakerRequests from './pages/AdminSpeakerRequests';
 import AdminInterviewRequests from './pages/AdminInterviewRequests';
+import TestimonyDetail from './pages/TestimonyDetail';
 import RequireAdminAuth from './components/admin/RequireAdminAuth';
 import AdminLayout from './components/admin/AdminLayout';
 import './styles/index.css';
@@ -35,6 +41,10 @@ import './styles/index.css';
 function AppRoutes() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location.pathname]);
 
   return (
     <div className="app">
@@ -54,6 +64,7 @@ function AppRoutes() {
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/:articleId" element={<ArticleDetail />} />
           <Route path="/testimony" element={<Testimony />} />
+          <Route path="/testimonies/:testimonyId" element={<TestimonyDetail />} />
           <Route path="/mission" element={<Mission />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/statement-of-faith" element={<StatementOfFaith />} />
@@ -79,6 +90,10 @@ function AppRoutes() {
             <Route path="articles" element={<AdminArticles />} />
             <Route path="articles/new" element={<AdminArticleCreate />} />
             <Route path="articles/:articleId/edit" element={<AdminArticleEdit />} />
+            <Route path="testimonies" element={<AdminTestimonies />} />
+            <Route path="testimonies/new" element={<AdminTestimonyCreate />} />
+            <Route path="testimonies/:testimonyId/edit" element={<AdminTestimonyEdit />} />
+            <Route path="contact-requests" element={<AdminContactRequests />} />
             <Route path="speaker-requests" element={<AdminSpeakerRequests />} />
             <Route path="interview-requests" element={<AdminInterviewRequests />} />
           </Route>

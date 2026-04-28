@@ -4,6 +4,7 @@ import Button from '../components/ui/Button';
 import PodcastCard from '../components/ui/PodcastCard';
 import ArticleCard from '../components/ui/ArticleCard';
 import CollapsibleSection from '../components/ui/CollapsibleSection';
+import ImagePromoSection from '../components/ui/ImagePromoSection';
 import { getFeaturedPodcasts } from '../data/podcasts';
 import { getFeaturedArticles } from '../data/articles';
 import { faqs } from '../data/teachings';
@@ -41,6 +42,7 @@ const Home = () => {
             <Hero
                 subtitle="Welcome to Cleansing Water Ministry"
                 title="Proclaiming the Gospel of"
+                backgroundImage="/images/home-hero-bg.png"
                 rotatingWords={[
                     "Jesus Christ",
                     "Salvation",
@@ -69,8 +71,8 @@ const Home = () => {
                     </div>
 
                     <div className="podcasts-grid">
-                        {featuredPodcasts.map((podcast) => (
-                            <PodcastCard key={podcast.id} {...podcast} />
+                        {featuredPodcasts.map((podcast, index) => (
+                            <PodcastCard key={podcast.id} animationIndex={index} {...podcast} />
                         ))}
                     </div>
 
@@ -89,7 +91,7 @@ const Home = () => {
             <section className="section explanation-section">
                 <div className="container container-sm">
                     <div className="explanation-content text-center">
-                        <h2 className="text-gradient">Rivers of Living Water</h2>
+                        <h2 className="explanation-section__title">Rivers of Living Water</h2>
                         <blockquote className="scripture-quote">
                             "He who believes in Me, as the Scripture has said, out of his heart will flow rivers of living water."
                             <cite>— John 7:38</cite>
@@ -109,13 +111,21 @@ const Home = () => {
                             <Button to="/mission" variant="primary">
                                 Our Mission
                             </Button>
-                            <Button to="/statement-of-faith" variant="ghost">
-                                Statement of Faith
+                            <Button to="/about" variant="ghost">
+                                About Us
                             </Button>
                         </div>
                     </div>
                 </div>
             </section>
+
+            <ImagePromoSection
+                title="The Victory of the Empty Tomb"
+                description="Jesus is risen, and His resurrection gives us living hope. Explore the promise of new life and bold faith through Christ."
+                buttonLabel="Explore Our Teachings"
+                buttonLink="/articles"
+                backgroundImage="/images/home-shared-tomb.png"
+            />
 
             {/* FAQ Section */}
             <section className="section faq-section">
@@ -162,6 +172,14 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            <ImagePromoSection
+                title="Christ Crucified and Glorified"
+                description="The cross is the center of our message. Discover Gospel-centered resources and podcasts that strengthen your walk with Jesus."
+                buttonLabel="Listen to the Podcasts"
+                buttonLink="/podcasts"
+                backgroundImage="/images/home-shared-cross.png"
+            />
 
             {/* CTA Section */}
             <section className="section cta-section">
